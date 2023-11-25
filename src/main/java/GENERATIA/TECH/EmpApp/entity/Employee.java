@@ -1,6 +1,7 @@
 package GENERATIA.TECH.EmpApp.entity;
 
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,10 +17,16 @@ public class Employee {
 	private String name;
 	private String address;
 	private String email;
-	private String phoneNumber;
+	private String phno;
+	private String salary;
 	
 	
-	
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -48,16 +55,18 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
+	
+	public String getPhno() {
+		return phno;
 	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhno(String phno) {
+		this.phno = phno;
 	}
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + "]";
+		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", phno=" + phno
+				+ ", salary=" + salary + "]";
 	}
+	
 
 }
