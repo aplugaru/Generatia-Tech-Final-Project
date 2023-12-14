@@ -1,8 +1,7 @@
 package GENERATIA.TECH.EmpApp.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +19,10 @@ public class EmpController {
 	@Autowired
 	private EmpService service;
 	
-	@GetMapping("/")
-	public String home(Model m) {
-		List<Employee> emp = service.getAllEmp();
-		m.addAttribute("emp", emp);
-		return "index";
+	
+	@GetMapping("/index")
+		public String home(Model m) {
+			return findPaginated(0, m);
 	}
 	
 	@GetMapping("/addemp")
@@ -39,7 +37,7 @@ public class EmpController {
 		
 		service.addEmp(e);
 		session.setAttribute("msg", "Employee Added Sucessfully");
-		return "redirect:/";
+		return "redirect:/index"; //here
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -61,5 +59,16 @@ public class EmpController {
 		service.deleteEmp(id);
 		session.setAttribute("msg", "Emp Data Deleted Sucessfully");
 		return "redirect:/";
+	}
+	
+	@GetMapping("/page/{pageno}")
+	public String findPaginated(@PathVariable int pageno, Model m) {
+
+		Page<Employee> emplist = service.getEmpByPaginate(pageno, 2);
+		m.addAttribute("emp", emplist);
+		m.addAttribute("currentPage", pageno);
+		m.addAttribute("totalPages", emplist.getTotalPages());
+		m.addAttribute("totalItem", emplist.getTotalElements());
+		return "index";
 	}
 }

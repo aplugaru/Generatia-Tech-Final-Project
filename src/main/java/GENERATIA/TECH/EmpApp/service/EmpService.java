@@ -1,10 +1,12 @@
 package GENERATIA.TECH.EmpApp.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import GENERATIA.TECH.EmpApp.entity.Employee;
@@ -37,4 +39,8 @@ public class EmpService {
 		repo.deleteById(id);
 	}
 
+	public Page<Employee> getEmpByPaginate(int currentPage, int size) {
+		PageRequest p =  PageRequest.of(currentPage, size);
+		return repo.findAll(p);
+}
 }
